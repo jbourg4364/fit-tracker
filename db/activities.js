@@ -2,12 +2,32 @@ const client = require('./client');
 
 // database functions
 async function createActivity({ name, description }) {
-  // return the new activity
+  try {
+    const result = await client.query(`
+      INSERT INTO activities (name, description)
+      VALUES ($1, $2)
+      RETURNING *;
+    `, [name, description]);
+    return result.rows[0];
+  } catch (error) {
+    console.error(`Error creating activity: ${name}`);
+    throw error;
+  }
 }
 
+
 async function getAllActivities() {
-  // select and return an array of all activities
+  try {
+    const result = await client.query(`
+      SELECT * FROM activities;
+    `);
+    return result.rows;
+  } catch (error) {
+    console.error("Error getting all activities");
+    throw error;
+  }
 }
+
 
 async function getActivityById(id) {}
 
