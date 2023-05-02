@@ -1,46 +1,95 @@
 const client = require('./client');
+const { getAllRoutines } = require('./routines');
+
 
 // database functions
 async function createActivity({ name, description }) {
   try {
-    const result = await client.query(`
-      INSERT INTO activities (name, description)
-      VALUES ($1, $2)
-      RETURNING *;
+
+    const { rows: [ activity ] } = await client.query(`
+    INSERT INTO activities(name, description)
+    VALUES($1, $2)
+    RETURNING *;
     `, [name, description]);
-    return result.rows[0];
+
+    return activity;
   } catch (error) {
-    console.error(`Error creating activity: ${name}`);
-    throw error;
+    console.error("Error creating activity", error);
   }
-}
+};
 
 
 async function getAllActivities() {
   try {
-    const result = await client.query(`
-      SELECT * FROM activities;
+    const { rows } = await client.query(`
+    SELECT *
+    FROM activities;
     `);
-    return result.rows;
+
+    return rows;
   } catch (error) {
-    console.error("Error getting all activities");
-    throw error;
+    console.error("Error getting all activities", error);
+  }
+};
+
+async function getActivityById(id) {
+  try {
+    
+    const { rows: [ activity ] } = await client.query(`
+    SELECT *
+    FROM activities
+    WHERE id=$1;
+    `, [id]);
+
+    
+    return activity;
+  } catch (error) {
+    console.error("Error getting activity by id", error);
+  }
+};
+
+async function getActivityByName(name) {
+  try {
+    const { rows: [ activity ] } = await client.query(`
+    SELECT *
+    FROM activities
+    WHERE name=$1;
+    `, [name]);
+
+    return activity;
+  } catch (error) {
+    console.error("Error getting activity by name", error);
   }
 }
 
-
-async function getActivityById(id) {}
-
-async function getActivityByName(name) {}
-
 // used as a helper inside db/routines.js
-async function attachActivitiesToRoutines(routines) {}
+async function attachActivitiesToRoutines(routines) {
+  try {
+    
+
+  } catch (error) {
+    console.error("Error attaching routines to activities", error);
+  }
+}
 
 async function updateActivity({ id, ...fields }) {
-  // don't try to update the id
-  // do update the name and description
-  // return the updated activity
-}
+
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${ key }"=$${ index + 1}`).join(', ');
+  
+  try {
+    const { rows: [ activity ] } = await client.query(`
+    UPDATE activities
+    set ${setString}
+    WHERE id=${ id }
+    RETURNING *;
+    `, Object.values(fields));
+
+    return activity;
+  } catch (error) {
+    console.error("Error updating activity", error);
+  }
+};
 
 module.exports = {
   getAllActivities,
