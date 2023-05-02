@@ -63,23 +63,12 @@ async function getActivityByName(name) {
 
 // used as a helper inside db/routines.js
 async function attachActivitiesToRoutines(routines) {
-  // try {
-  //   const { routineId } = routines.map(routine => routine.id);
+  try {
+    
 
-  //   const activities = getAllActivities();
-  //   const { activityId } = activities.map(activity => activity.id)
-
-  //   const { rows: { routine_activity }} = await client.query(`
-  //   INSERT INTO routine_activities("routineId", "activityId")
-  //   VALUES ($${routineId}, $${activityId})
-  //   ON CONFLICT DO NOTHING;
-  //   `, [routineId, activityId]);
-
-  //   return routine_activity;
-
-  // } catch (error) {
-  //   console.error("Error attaching routines to activities", error);
-  // }
+  } catch (error) {
+    console.error("Error attaching routines to activities", error);
+  }
 }
 
 async function updateActivity({ id, ...fields }) {
