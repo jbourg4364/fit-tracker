@@ -18,6 +18,7 @@ async function createActivity({ name, description }) {
   }
 };
 
+
 async function getAllActivities() {
   try {
     const { rows } = await client.query(`
