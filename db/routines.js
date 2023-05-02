@@ -43,7 +43,17 @@ async function getRoutinesWithoutActivities() {
   }
 }
 
-async function getAllRoutines() {}
+async function getAllRoutines() {
+  try {
+    const result = await client.query(`
+      SELECT * FROM routines;
+    `)
+    return result.rows;
+  } catch (error) {
+    console.error("Error getting all routines");
+    throw error;
+  }
+}
 
 async function getAllPublicRoutines() {}
 
