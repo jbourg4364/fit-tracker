@@ -60,17 +60,43 @@ async function getActivityByName(name) {
   } catch (error) {
     console.error("Error getting activity by name", error);
   }
-}
+};
 
 // used as a helper inside db/routines.js
 async function attachActivitiesToRoutines(routines) {
-  try {
-    
+  const routinesToReturn = [...routines]; // prevents unwanted side effects.
+  // $1, $2, $3
+  const position = routines.map((_, index) => `$${index + 1}`).join(', ');
+  const routineIds = routines.map((routine) => routine.id);
 
-  } catch (error) {
-    console.error("Error attaching routines to activities", error);
+  // get the activities, JOIN with routine_activities (so we can get a routineId)
+  const { rows: activities } = await client.query(
+    `
+  SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities."routineId", routine_activities.id AS "routineActivityId"
+  FROM activities
+  JOIN routine_activities ON routine_activities."activityId" = activities.id
+  WHERE routine_activities."routineId" IN (${position})
+  `,
+    routineIds
+  );
+
+  // console.log('these are my activities: ----->', activities);
+
+  // loop over each routine
+  for (const routine of routinesToReturn) {
+    // if the routine.id matches the activtiy.routineId then add to routine.
+    const activitiesToAdd = activities.filter(
+      (activity) => activity.routineId === routine.id
+    );
+
+    routine.activities = activitiesToAdd;
   }
-}
+
+  
+  // console.log('these are my routines: ----->', routines[3].activities);
+  return routinesToReturn;
+};
+
 
 async function updateActivity({ id, ...fields }) {
 
@@ -98,4 +124,5 @@ module.exports = {
   attachActivitiesToRoutines,
   createActivity,
   updateActivity,
+
 };
