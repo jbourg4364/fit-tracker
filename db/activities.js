@@ -92,10 +92,10 @@ async function attachActivitiesToRoutines(routines) {
   }
 
   
-  // console.log('these are my routines: ----->', routines[3].activities);
-  // console.log(routinesToReturn)
+  // console.log('these are my routines: ----->', routines[3]);
   return routinesToReturn;
 };
+
 
 
 async function updateActivity({ id, ...fields }) {
