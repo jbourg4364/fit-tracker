@@ -65,12 +65,25 @@ async function getActivityByName(name) {
 // used as a helper inside db/routines.js
 async function attachActivitiesToRoutines(routines) {
   try {
-    
+    const routinesWithActivitiesPromises = routines.map(async (routine) => {
+      const { rows: activities } = await client.query(`
+        SELECT *
+        FROM routine_activities
+        WHERE "routineId"=$1;
+      `, [routine.id]);
 
+      return { ...routine, activities };
+    });
+
+    const routinesWithActivities = await Promise.all(routinesWithActivitiesPromises);
+    console.log(routinesWithActivities)
+    return routinesWithActivities;
   } catch (error) {
-    console.error("Error attaching routines to activities", error);
+    console.error("Error attaching activities to routines", error);
+    throw error;
   }
 }
+
 
 async function updateActivity({ id, ...fields }) {
 
