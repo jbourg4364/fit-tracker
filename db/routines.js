@@ -95,7 +95,17 @@ async function getAllRoutines() {
 
 
 async function getAllPublicRoutines() {
-
+try {
+  const { rows:routines } = await client.query(`
+  SELECT routines.*, users.username AS "creatorName"
+  FROM routines
+  JOIN users ON routines."creatorId" = users.id
+  WHERE "isPublic" IS TRUE;
+  `)
+  return await attachActivitiesToRoutines(routines)
+} catch (error) {
+  console.error("Error getting all public routines", error)
+}
 }
 
 async function getAllRoutinesByUser({ username }) {
@@ -117,9 +127,37 @@ async function getAllRoutinesByUser({ username }) {
 }
 
 
-async function getPublicRoutinesByUser({ username }) {}
+async function getPublicRoutinesByUser({ username }) {
+  try {
+    const { rows: routines } = await client.query(`
+    SELECT routines.*, users.username AS "creatorName"
+    FROM routines
+    JOIN users ON routines."creatorId" = users.id
+    WHERE users.username=$1 AND "isPublic";
+    `, [username]);
+    return await attachActivitiesToRoutines(routines)
+  } catch (error) {
+    console.error("Error getting public routines by user", error);
+  }
+}
 
-async function getPublicRoutinesByActivity({ id }) {}
+async function getPublicRoutinesByActivity({ id }) {
+  try {
+    const { rows: routines } = await client.query(`
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users ON routines."creatorId" = users.id
+      JOIN routine_activities ON routines.id = routine_activities."routineId"
+      WHERE "isPublic" = true AND routine_activities."activityId" = $1;
+    `, [id]);
+
+    return await attachActivitiesToRoutines(routines);
+  } catch (error) {
+    console.error("Error getting public routines by activity", error);
+    throw error;
+  }
+}
+
 
 async function updateRoutine({ id, ...fields }) {
   // Create a string to set the fields to update with their respective placeholders
