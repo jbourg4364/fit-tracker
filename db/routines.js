@@ -94,17 +94,80 @@ async function getAllRoutines() {
 }
 
 
-async function getAllPublicRoutines() {}
+async function getAllPublicRoutines() {
 
-async function getAllRoutinesByUser({ username }) {}
+}
+
+async function getAllRoutinesByUser({ username }) {
+  try {
+    // Join the routines and users tables, and filter by the given username
+    const { rows: routines } = await client.query(`
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users ON routines."creatorId" = users.id
+      WHERE users.username = $1;
+    `, [username]);
+
+    // Attach activities to each routine
+    return await attachActivitiesToRoutines(routines);
+  } catch (error) {
+    console.error("Error getting all routines by user", error);
+    throw error;
+  }
+}
+
 
 async function getPublicRoutinesByUser({ username }) {}
 
 async function getPublicRoutinesByActivity({ id }) {}
 
-async function updateRoutine({ id, ...fields }) {}
+async function updateRoutine({ id, ...fields }) {
+  // Create a string to set the fields to update with their respective placeholders
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
 
-async function destroyRoutine(id) {}
+  try {
+    // Run the SQL query to update the routines table with the new values based on the provided id
+    const { rows: [ updatedRoutine ] } = await client.query(`
+      UPDATE routines
+      SET ${setString}
+      WHERE id=$${Object.keys(fields).length + 1}
+      RETURNING *;
+    `, [...Object.values(fields), id]);
+
+    // Return the updated routine
+    return updatedRoutine;
+  } catch (error) {
+    console.error("Error updating routine", error);
+    throw error;
+  }
+}
+
+
+async function destroyRoutine(id) {
+  try {
+    // Delete all the routine_activities associated with the routine
+    await client.query(`
+      DELETE FROM routine_activities
+      WHERE "routineId"=$1;
+    `, [id]);
+
+    // Delete the routine from the routines table
+    const { rows: [deletedRoutine] } = await client.query(`
+      DELETE FROM routines
+      WHERE id=$1
+      RETURNING *;
+    `, [id]);
+
+    // Return the deleted routine
+    return deletedRoutine;
+  } catch (error) {
+    console.error("Error deleting routine", error);
+    throw error;
+  }
+}
+
 
 module.exports = {
   getRoutineById,

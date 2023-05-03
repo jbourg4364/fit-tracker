@@ -1,5 +1,5 @@
 const client = require('./client');
-const { getAllRoutines } = require('./routines');
+// const { getAllRoutines } = require('./routines');
 
 
 // database functions
@@ -93,7 +93,7 @@ async function attachActivitiesToRoutines(routines) {
   }
 
   
-  // console.log('these are my routines: ----->', routines[3].activities);
+  // console.log('these are my routines: ----->', routines[3]);
   return routinesToReturn;
 };
 
