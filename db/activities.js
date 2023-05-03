@@ -1,5 +1,5 @@
 const client = require('./client');
-const { getAllRoutines } = require('./routines');
+// const { getAllRoutines } = require('./routines');
 
 
 // database functions
@@ -70,12 +70,11 @@ async function attachActivitiesToRoutines(routines) {
   const routineIds = routines.map((routine) => routine.id);
 
   // get the activities, JOIN with routine_activities (so we can get a routineId)
-  const { rows: activities } = await client.query(
-    `
+  const { rows: activities } = await client.query(`
   SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities."routineId", routine_activities.id AS "routineActivityId"
   FROM activities
   JOIN routine_activities ON routine_activities."activityId" = activities.id
-  WHERE routine_activities."routineId" IN (${position})
+  WHERE routine_activities."routineId" IN (${position});
   `,
     routineIds
   );
@@ -94,6 +93,7 @@ async function attachActivitiesToRoutines(routines) {
 
   
   // console.log('these are my routines: ----->', routines[3].activities);
+  // console.log(routinesToReturn)
   return routinesToReturn;
 };
 
