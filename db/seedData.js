@@ -7,18 +7,15 @@ const { addActivityToRoutine } = require("./routine_activities")
 
 async function dropTables() {
   console.log("Dropping All Tables...")
-  // drop all tables, in the correct order
-  try {
-    await client.query(`
-    DROP TABLE IF EXISTS routine_activities;
-    DROP TABLE IF EXISTS routines;
-    DROP TABLE IF EXISTS activities;
-    DROP TABLE IF EXISTS users;
-    `)
-  } catch (error) {
-    console.error("Error Dropping Tables!");
-    throw error;
-  }
+  
+  await client.query(`
+  DROP TABLE IF EXISTS routine_activities;
+  DROP TABLE IF EXISTS routines;
+  DROP TABLE IF EXISTS activities;
+  DROP TABLE IF EXISTS users;
+  `);
+  
+  console.log("Finished dropping tables!")
 }
 
 async function createTables() {
