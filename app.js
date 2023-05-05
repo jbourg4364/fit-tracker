@@ -6,7 +6,7 @@ const PORT = 3000;
 
 
 // Setup your Middleware and API Router here
-app.use(express.json())
+// app.use(express.json())
 app.use(cors());
 
 const router = require('./api');

@@ -1,6 +1,6 @@
 const express = require('express');
 const activitiesRouter = express.Router();
-const { getAllActivities, createActivity, getActivityByName, updateActivity } = require('../db/activities');
+const { getAllActivities, createActivity, getActivityByName, updateActivity, getRoutineActivityById } = require('../db');
 const { getActivityById } = require('../db');
 const { getPublicRoutinesByActivity } = require('../db/routines')
 
@@ -11,20 +11,25 @@ activitiesRouter.use((req, res, next) => {
 });
 
 // GET /api/activities/:activityId/routines
-// activitiesRouter.get('/:activityId/routines', async (req, res, next) => {
-  
-//   const { activityId } = req.params;
-
-//   try {
-//     const activityName = await getActivityById(activityId)
-//     consolelog(activityName)
+activitiesRouter.get('/:activityId/routines', async (req, res, next) => {
+  const {activityId} = req.params;
+  try {
+    const activity = await getActivityById(activityId);
+    const routine = await getPublicRoutinesByActivity(activity);
     
+    console.log(activity)
+    console.log(routine);
 
+    if(routine) {
+      res.send(routine);
+    } else {
+      res.send(error);
+    }
 
-//   } catch (error) {
-//     console.error;
-//   }
-// });
+  } catch (error) {
+    console.error;
+  }
+});
 
 
 
@@ -40,60 +45,55 @@ activitiesRouter.get('/', async (req, res, next) => {
   }
 });
 // POST /api/activities
-// activitiesRouter.post('/', async (req, res, next) => {
-//     const { name, description } = req.body;
-//     const activityData = {
-//         name: name,
-//         description: description,
-//     };
+activitiesRouter.post('/', async (req, res, next) => {
+    const { name, description } = req.body;
+    const activityData = {
+        name: name,
+        description: description,
+    };
 
-//     try {
-//         const newActivity = await createActivity(activityData);
-//         const allActivities = await getAllActivities();
-//         const allActivitiesByName = allActivities.map(activity => activity.name);
+    try {
+        const newActivity = await createActivity(activityData);
+        const allActivities = await getAllActivities();
+        const allActivitiesByName = allActivities.map(activity => activity.name);
 
         
-//         for(let i = 0; i < allActivitiesByName.length; i++) {
-//           if(allActivitiesByName[i] === newActivity.name) {
-//             // console.log(allActivitiesByName[i], newActivity.name);
-//             next({name, message})
+        for(let i = 0; i < allActivitiesByName.length; i++) {
+          if(allActivitiesByName[i] === newActivity.name) {
+            // console.log(allActivitiesByName[i], newActivity.name);
+            next({name, message})
 
-//           } else {
-//             res.send(newActivity);
-//           }
-//         };
+          } 
+            res.send(newActivity);
+         
+        };
 
-//     } catch (error) {
-//       console.log(error)
-//     }
-// });
+    } catch (error) {
+      console.log(error)
+    }
+});
 
 // PATCH /api/activities/:activityId
-activitiesRouter.patch('/:activityId', async (req, res, next) => {
-  const { activityId } = req.params;
-  const { name, description } = req.body;
-
-  const updateFields = {};
+// activitiesRouter.patch('/:activityId (*)', async (req, res, next) => {
+//   const { activityId } = req.params;
   
-  if(name) {
-    updateFields.name = name;
-  }
+ 
+//   updateFields = { name, description};
 
-  if(description) {
-    updateFields.description = description;
-  }
+  
+  
+//   try {
+//     const activity = await getActivityById(activityId);
+//     console.log(activity);
 
-  try {
-    
-    const updatedActivity = await updateActivity({activityId, updateFields});
-    
-    res.send({ rows: updatedActivity })
-  } catch (error) {
-    console.error(error);
-  }
+//     const updatedActivity = await updateActivity({activity, ...updateFields})
+ 
+//   } catch (error) {
+//     console.error(error);
+//   }
 
 
-})
+// });
 
 
 module.exports = activitiesRouter;
