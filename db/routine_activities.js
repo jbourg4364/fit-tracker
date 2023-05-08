@@ -51,6 +51,21 @@ async function getRoutineActivitiesByRoutine({ id }) {
   }
 }
 
+async function getRoutineActivityByRoutineIdAndActivityId(routineId, activityId) {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM routine_activities
+      WHERE "routineId"=$1 AND "activityId"=$2;
+    `, [routineId, activityId]);
+
+    return rows[0];
+  } catch (error) {
+    console.error('Error fetching routine activity by routineId and activityId:', error);
+    throw error;
+  }
+}
+
+
 async function updateRoutineActivity({ id, ...fields }) {
   try {
     const setString = Object.keys(fields)
@@ -113,4 +128,5 @@ module.exports = {
   updateRoutineActivity,
   destroyRoutineActivity,
   canEditRoutineActivity,
+  getRoutineActivityByRoutineIdAndActivityId
 };
