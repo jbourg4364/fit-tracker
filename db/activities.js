@@ -99,24 +99,30 @@ async function attachActivitiesToRoutines(routines) {
 
 
 
-async function updateActivity({ id, ...fields }) {
+async function updateActivity(id, fields) {
+  const { name, description } = fields;
+  const activityToUpdate = await getActivityById(id);
 
-  const setString = Object.keys(fields).map(
-    (key, index) => `"${ key }"=$${ index + 1}`).join(', ');
-  
-  try {
-    const { rows: [ activity ] } = await client.query(`
-    UPDATE activities
-    set ${setString}
-    WHERE id=${ id }
-    RETURNING *;
-    `, Object.values(fields));
-
-    return activity;
-  } catch (error) {
-    console.error("Error updating activity", error);
+  if (!activityToUpdate) {
+    throw new Error(`Activity with id '${id}' not found.`);
   }
-};
+
+  const updatedFields = {
+    ...activityToUpdate,
+    ...(name && { name }),
+    ...(description && { description }),
+  };
+
+  const { rows: [updatedActivity] } = await client.query(`
+    UPDATE activities
+    SET name=$1, description=$2
+    WHERE id=$3
+    RETURNING *;
+  `, [updatedFields.name, updatedFields.description, id]);
+
+  return updatedActivity;
+}
+
 
 module.exports = {
   getAllActivities,
