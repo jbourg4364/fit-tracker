@@ -8,7 +8,7 @@ const { getAllActivities,
   updateActivity,
    getUserById,
    getPublicRoutinesByActivity
-   } = require('../../db');
+   } = require('../db');
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config();

@@ -7,8 +7,8 @@
     "seed:dev": "nodemon ./db/seed.js",
     "seed": "node ./db/seed.js",
     "start:dev": "nodemon server.js",
-    "start": "node server.js",
-    "start:react": "react-scripts start",
+    "start": "(npm run start --prefix client) & node server.js",
+    "start:react": "npm run start --prefix client",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll"
   },

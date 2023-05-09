@@ -7,7 +7,7 @@ const {
   canEditRoutineActivity,
   getUserById,
   getRoutineById
-} = require("../../db");
+} = require('../db');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const SECRET = process.env.JWT_SECRET;

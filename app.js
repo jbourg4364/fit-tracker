@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
-const router = require('./src/api');
+const router = require('./api');
 app.use('/api', router);
 
 app.get('/', express.static(path.join(__dirname, 'public')));
