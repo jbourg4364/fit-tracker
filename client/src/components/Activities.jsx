@@ -24,10 +24,15 @@ useEffect(() => {
 
     return(
         <div>
-            <h1>Hello from ACTIVITIES</h1>
+            <h1>Activities</h1>
             <ul>
                 {activities.map(activity => (
-                <li key={activity.id}>{activity.title}</li>
+                <li key={activity.id}>
+                    {activity.name}
+                    <br />
+                    {activity.description}
+                </li>
+                
                 ))}
             </ul>
         </div>
