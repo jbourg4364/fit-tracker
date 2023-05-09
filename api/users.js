@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
 const usersRouter = express.Router();
-const { createUser, getUser, getUserById, getUserByUsername, getPublicRoutinesByUser, getAllRoutinesByUser } = require('../db');
+const { createUser, getUser, getUserById, getUserByUsername, getPublicRoutinesByUser, getAllRoutinesByUser } = require('../../db');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const SECRET = process.env.JWT_SECRET;
