@@ -26,10 +26,10 @@ const bcrypt = require('bcrypt')
 // GET /api/routines
 routinesRouter.get('/', async (req, res, next) => {
   try {
-    const routines = await getAllPublicRoutines();
-    const routinesWithActivities = await attachActivitiesToRoutines(routines);
+    const routines = await getAllRoutines();
+    
 
-    res.status(200).json(routinesWithActivities);
+    res.status(200).json(routines);
   } catch (error) {
     next(error);
   }
