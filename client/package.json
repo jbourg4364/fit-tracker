@@ -1,0 +1,17 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "seed:dev": "nodemon ./db/seed.js",
+    "seed": "node ./db/seed.js",
+    "start:dev": "nodemon server.js",
+    "start": "react-scripts start",
+    "start:react": "npm run start --prefix client",
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watchAll"
+  },
+  "author": "",
+  "license": "ISC"
+}

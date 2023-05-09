@@ -37,13 +37,13 @@ routinesRouter.get('/', async (req, res, next) => {
 
 const authenticateUser = async (req, res, next) => {
     try {
-      console.log('req.headers.authorization:', req.headers.authorization); // Log the authorization header value
+      // console.log('req.headers.authorization:', req.headers.authorization); // Log the authorization header value
   
       const token = req.headers.authorization.split(' ')[1];
-      console.log('token:', token); 
+      // console.log('token:', token); 
   
       const decoded = jwt.verify(token, SECRET);
-      console.log('decoded:', decoded); 
+      // console.log('decoded:', decoded); 
   
       const user = await getUserById(decoded.id);
       if (user) {
@@ -162,7 +162,7 @@ routinesRouter.post('/:routineId/activities', authenticateUser, async (req, res,
       }
   
       const routineActivity = await getRoutineActivityByRoutineIdAndActivityId(routineId, activityId);
-  console.log(routineActivity)
+  // console.log(routineActivity)
       if (routineActivity) {
         return res.status(400).json({
           error: 'BadRequestError',
