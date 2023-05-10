@@ -3,10 +3,12 @@ import './Activities.css';
 import { NewActivityForm } from './'
 
 
+// Assuming isLoggedIn will give us authentication
+const Activities = ({isLoggedIn}) => {
+    const [activities, setActivities] = useState([]);
+    const [showForm, setShowForm] = useState(false);
 
-const Activities = () => {
-const [activities, setActivities] = useState([]);
-const [showForm, setShowForm] = useState(false);
+    isLoggedIn = true; // Temporary declaration
 
 useEffect(() => {
     const fetchActivities = async () => {
@@ -35,12 +37,12 @@ const handleAddActivity = async (name, description) => {
         });
 
         const data = await response.json();
+        console.log(data);
         setActivities([...activities, data]);
     } catch (error) {
         console.error(error);
     }
 };
-
 
     return(
         <div>
@@ -48,9 +50,9 @@ const handleAddActivity = async (name, description) => {
             {showForm ? (
                 <NewActivityForm onSubmit={handleAddActivity} /> 
             ) : (
-            <button id='newActivity' onClick={() => setShowForm(true)}>Add New Activity</button>
+            <button id='newActivity' onClick={() => isLoggedIn ? setShowForm(true) : window.alert("Please Login to Add an Activity")}>Add New Activity</button>
             )}
-            <ul className='activity-container' >
+            <ul className='activity-container'>
                 {activities.map(activity => (
                 <li key={activity.id} className='activity-item'>
                     <b>{activity.name}</b>

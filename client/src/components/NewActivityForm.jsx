@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import './Activities.css';
 
-const NewActivityForm = ({ onSubmit }) => {
+
+
+const NewActivityForm = ({ onSubmit, isLoggedIn }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    
+    isLoggedIn = true; // Temporary declaration
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(name, description);
-        setName('');
-        setDescription('');
+        if(isLoggedIn) {
+            onSubmit(name, description);
+            setName('');
+            setDescription(''); 
+        } else {
+            window.alert("Please Login to Submit a New Activity");
+            setName('');
+            setDescription('');
+        } 
     };
 
   return (
@@ -27,6 +37,7 @@ const NewActivityForm = ({ onSubmit }) => {
         <button type='submit' className='newActivitySubmit'>Submit</button>
     </form>
   )
-}
+};
+
 
 export default NewActivityForm;

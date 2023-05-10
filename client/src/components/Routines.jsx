@@ -5,6 +5,8 @@ const Routines = () => {
 const [routines, setRoutines] = useState([]);
 const [showForm, setShowForm] = useState(false);
 
+
+
 useEffect(() => {
     const fetchRoutines = async () => {
        try {

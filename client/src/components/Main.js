@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 //Routes: Still needs header(includes login/register?)
 
 const Main = () => {
+    
+
     return (
         <div>
             <Header />
