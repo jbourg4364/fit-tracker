@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Activities.css';
-
+import { NewActivityForm } from './'
 
 
 
 const Activities = () => {
 const [activities, setActivities] = useState([]);
-
+const [showForm, setShowForm] = useState(false);
 
 useEffect(() => {
     const fetchActivities = async () => {
@@ -24,14 +24,35 @@ useEffect(() => {
     
 }, []);
 
+const handleAddActivity = async (name, description) => {
+    try {
+        const response = await fetch('http://localhost:8080/api/activities', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, description })
+        });
+
+        const data = await response.json();
+        setActivities([...activities, data]);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 
     return(
         <div>
             <h1>Activities</h1>
-            <button id='newActivity'>Add New Activity</button>
-            <ul>
+            {showForm ? (
+                <NewActivityForm onSubmit={handleAddActivity} /> 
+            ) : (
+            <button id='newActivity' onClick={() => setShowForm(true)}>Add New Activity</button>
+            )}
+            <ul className='activity-container' >
                 {activities.map(activity => (
-                <li key={activity.id}>
+                <li key={activity.id} className='activity-item'>
                     <b>{activity.name}</b>
                     <br />
                     <p>"{activity.description}"</p>
