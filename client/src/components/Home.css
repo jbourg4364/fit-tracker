@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+  }
+  
+.homeComponent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://wallpapercave.com/wp/wp2482997.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.homeComponent::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.homeTitle {
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    z-index: 1;
+}
+
+.homeDetails {
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+    z-index: 1;
+}
+
+.joinButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}

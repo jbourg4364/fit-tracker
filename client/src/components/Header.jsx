@@ -14,18 +14,23 @@ const Header = () => {
     };
 
     return (
-        <div id='header'>
-            <h1>Slim GEMS</h1>
+        <div id='headerComponent'>
+            <div className='headerLogo'>
+                <img src="https://img.freepik.com/premium-vector/fitness-logo_686735-473.jpg?w=2000" alt="Slim Gems logo" />
+                <h1>SLIM GEMS</h1>
+            </div>
             <nav>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/activities">Activities</NavLink>
-                <NavLink to="/routines">Routines</NavLink>
-                {isLoggedIn ? (
-                    <button onClick={handleLogout}>Logout</button>
-                ) : (
-                    <button onClick={handleLogin}>Login</button>
-                )}
+                <NavLink to="/" className="navLink">Home</NavLink>
+                <NavLink to="/activities" className="navLink">Activities</NavLink>
+                <NavLink to="/routines" className="navLink">Routines</NavLink>
             </nav>
+            <div className='loginLogoutButtons'>
+                {isLoggedIn ? (
+                    <button onClick={handleLogout} className='authButton'>Logout</button>
+                ) : (
+                    <button onClick={handleLogin} className='authButton'>Login</button>
+                )}
+            </div>
         </div>
     )
 };

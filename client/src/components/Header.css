@@ -1,87 +1,63 @@
-/* Header */
-
-html {
-    -webkit-text-size-adjust: 100%;
-}
-
-#header {
+#headerComponent {
     display: flex;
-    width: 100vw;
-    height: 100px;
+    width: 100%;
     justify-content: space-between;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     font-family: Arial, Helvetica, sans-serif;
-    padding-left: 20px;
-    padding-right: 20px;
     align-items: center;
-    box-shadow: 2px 2px 7px black;
+    padding: 0;
 }
 
-nav a {
+.headerLogo {
+    display: flex;
+    align-items: center;
+}
+
+.headerLogo img {
+    width: auto;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.headerLogo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.navLink {
     text-decoration: none;
-    color: white;
-    margin-left: 15px;
-    font-size: 20px;
+    color: black;
+    margin: 0 15px;
+    font-size: 16px;
     letter-spacing: 1px;
-    margin-right: 40px;
+    transition: font-weight 0.3s ease;
+    padding-bottom: 2px;
 }
 
-
-li {
-    margin-left: 8px;
-    margin-right: 8px;
-    font-size: 20px;
+.navLink:hover, .navLink.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
 }
 
-nav a:hover {
-    text-shadow: 2px 2px 5px white;
-    font-size: 21px;
-
+.loginLogoutButtons {
+    display: flex;
+    justify-content: flex-end;
 }
 
-
-
-h1 {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-
-    letter-spacing: 1px;
-
-    font-size: 40px;
-    margin-left: 5px;
-}
-
-button {
+.authButton {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px 10px;
     margin-left: 30px;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 1px;
-    margin-right: 60px;
-}
-
-@media screen and (max-width: 650px) {
-    nav a {
-        display: flex;
-        margin-right: 60px;
-        justify-content: center;
-        letter-spacing: .5px;
-    }
-
-    #header {
-        display: flex;
-        width: 100vw;
-        height: 100px;
-        justify-content: space-between;
-        background-color: black;
-        color: white;
-        font-family: Arial, Helvetica, sans-serif;
-        align-items: center;
-
-    }
-
-    nav a:hover {
-        text-shadow: 2px 2px 5px white;
-        font-size: 21px;
-    }
-
 }
