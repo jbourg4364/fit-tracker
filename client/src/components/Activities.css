@@ -1,0 +1,17 @@
+* {
+    text-align: center;
+}
+
+li {
+    list-style: none;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+#newActivity {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -18,7 +18,7 @@ useEffect(() => {
     fetchRoutines();
 }, []);
 
-console.log(routines)
+
     
 return(
     <div>
