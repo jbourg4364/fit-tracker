@@ -40,11 +40,7 @@ nav a:hover {
 
 }
 
-li:hover {
-    cursor: pointer;
-    text-shadow: 2px 2px 5px white;
-    font-weight: 800;
-}
+
 
 h1 {
     text-align: center;

@@ -28,9 +28,9 @@ useEffect(() => {
             <ul>
                 {activities.map(activity => (
                 <li key={activity.id}>
-                    {activity.name}
+                    <b>{activity.name}</b>
                     <br />
-                    {activity.description}
+                    <p>"{activity.description}"</p>
                 </li>
                 
                 ))}
