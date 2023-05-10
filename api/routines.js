@@ -27,7 +27,6 @@ const bcrypt = require('bcrypt')
 routinesRouter.get('/', async (req, res, next) => {
   try {
     const routines = await getAllRoutines();
-    
 
     res.status(200).json(routines);
   } catch (error) {
