@@ -1,0 +1,63 @@
+#headerComponent {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: white;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    padding: 0;
+}
+
+.headerLogo {
+    display: flex;
+    align-items: center;
+}
+
+.headerLogo img {
+    width: auto;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.headerLogo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.navLink {
+    text-decoration: none;
+    color: black;
+    margin: 0 15px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: font-weight 0.3s ease;
+    padding-bottom: 2px;
+}
+
+.navLink:hover, .navLink.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.loginLogoutButtons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.authButton {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px 10px;
+    margin-left: 30px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
