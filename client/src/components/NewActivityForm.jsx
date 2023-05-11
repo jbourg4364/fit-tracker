@@ -7,7 +7,7 @@ const NewActivityForm = ({ onSubmit, isLoggedIn }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     
-    isLoggedIn = true; // Temporary declaration
+    isLoggedIn = true;
 
     const handleSubmit = (event) => {
         event.preventDefault();

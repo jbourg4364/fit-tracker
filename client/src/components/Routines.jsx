@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { NewRoutineForm } from './';
 
-const Routines = () => {
+const Routines = ({isLoggedIn}) => {
 const [routines, setRoutines] = useState([]);
 const [showForm, setShowForm] = useState(false);
+
+isLoggedIn = true; // Temporary declaration
 
 
 
@@ -21,6 +23,7 @@ useEffect(() => {
 
     fetchRoutines();
 }, []);
+
 
 const handleAddRoutine = async (name, goal) => {
     try {
@@ -46,7 +49,7 @@ return(
         {showForm ? (
             <NewRoutineForm onSubmit={handleAddRoutine}/>
         ) : (
-        <button id='newRoutine' onClick={() => setShowForm(true)}>Add New Routine</button>)
+        <button id='newRoutine' onClick={() => isLoggedIn ? setShowForm(true) : window.alert("Please Login to Add an Activity")}>Add New Routine</button>)
         }
         <ul className='routine-container'>
             {routines.map(routine => (
