@@ -30,6 +30,7 @@ nav {
     justify-content: center;
     flex-grow: 1;
     align-items: center;
+    transform: translate(-3.5%);
 }
 
 .navLink {
@@ -57,7 +58,7 @@ nav {
     background-color: white;
     border: 1px solid black;
     padding: 5px 10px;
-    margin-left: 30px;
+    margin-right: 10px;
     font-size: 14px;
     letter-spacing: 1px;
 }

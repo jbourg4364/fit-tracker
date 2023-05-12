@@ -2,9 +2,11 @@ import React from 'react';
 import { Routines, Home, MyRoutines, Activities, Header } from './index';
 import { Routes, Route } from 'react-router-dom';
 
-//Routes: Still needs header(includes login/register?)
+
 
 const Main = () => {
+    
+
     return (
         <div>
             <Header />
@@ -13,6 +15,7 @@ const Main = () => {
                 <Route path='/routines' element={<Routines />}/>
                 <Route path='/me' element={<MyRoutines />}/>
                 <Route path='/activities' element={<Activities/>}/>
+                <Route path='/myroutines' element={<MyRoutines/>}/>
             </Routes>
         </div>
     )
