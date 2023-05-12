@@ -21,6 +21,10 @@ const Header = () => {
                 <NavLink to="/" className="navLink">Home</NavLink>
                 <NavLink to="/activities" className="navLink">Activities</NavLink>
                 <NavLink to="/routines" className="navLink">Routines</NavLink>
+                {isLoggedIn ? (
+                    <NavLink to="/myroutines" className="navLink">My Routines</NavLink>
+                ) : null}
+                
             </nav>
             <div className='loginLogoutButtons'>
                 {isLoggedIn ? (
