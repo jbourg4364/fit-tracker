@@ -54,6 +54,10 @@ li:hover {
     background-color: black;
 }
 
+ul {
+  padding-left: 0px;
+}
+
 
 /* New Routine Form */
 .newRoutineForm {
