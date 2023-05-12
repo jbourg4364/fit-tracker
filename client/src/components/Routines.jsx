@@ -8,7 +8,7 @@ useEffect(() => {
        try {
         const response = await fetch('http://localhost:8080/api/routines');
         const data = await response.json();
-        
+        console.log(data)
         setRoutines(data);
        } catch (error) {
         console.error(error)
@@ -34,16 +34,17 @@ return(
                 <ul>
                     <br></br>
                     <em>Activities Available for This Routine</em>
-                    <li>
-                        <b>{routine.activities[0].name}</b>
-                        <p>{routine.activities[0].description}</p>
-                        <p>Count: {routine.activities[0].count}</p>
-                        <p>Duration: {routine.activities[0].duration}</p>
-                    </li>
+                    {routine.activities && routine.activities.length > 0 &&
+                        <li>
+                            <b>{routine.activities[0].name}</b>
+                            <p>{routine.activities[0].description}</p>
+                            <p>Count: {routine.activities[0].count}</p>
+                            <p>Duration: {routine.activities[0].duration}</p>
+                        </li>
+                    }
                 </ul>
                 <hr></hr>
             </li>
-            
             ))}
         </ul>
     </div>

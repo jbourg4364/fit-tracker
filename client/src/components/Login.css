@@ -1,0 +1,59 @@
+.login-auth-container {
+    background-color: #ffffff;
+    width: 400px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-auth-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  .login-auth-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #login-auth-username,
+  #login-auth-password {
+    padding: 12px 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  #login-auth-button {
+    padding: 12px 20px;
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  #login-auth-button:hover {
+    background-color: #4b0fa8;
+  }
+  
+  .login-auth-text {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .login-auth-link {
+    color: #6a11cb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .login-auth-link:hover {
+    color: #4b0fa8;
+  }
+  

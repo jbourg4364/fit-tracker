@@ -1,8 +1,6 @@
 import React from 'react';
-import { Routines, Home, MyRoutines, Activities, Header } from './index';
+import { Routines, Home, MyRoutines, Activities, Header, Login, Register } from './index';
 import { Routes, Route } from 'react-router-dom';
-
-//Routes: Still needs header(includes login/register?)
 
 const Main = () => {
     return (
@@ -13,10 +11,11 @@ const Main = () => {
                 <Route path='/routines' element={<Routines />}/>
                 <Route path='/me' element={<MyRoutines />}/>
                 <Route path='/activities' element={<Activities/>}/>
+                <Route path='/login' element={<Login/>}/>
+                <Route path='/register' element={<Register/>}/>
             </Routes>
         </div>
     )
 };
 
 export default Main;
-

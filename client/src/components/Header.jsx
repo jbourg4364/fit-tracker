@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-    };
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially set to false
 
     const handleLogout = () => {
+        // Handle the logout logic here
+        // After logging out, set isLoggedIn state to false
         setIsLoggedIn(false);
-    };
+    }
 
     return (
         <div id='headerComponent'>
@@ -26,13 +24,13 @@ const Header = () => {
             </nav>
             <div className='loginLogoutButtons'>
                 {isLoggedIn ? (
-                    <button onClick={handleLogout} className='authButton'>Logout</button>
+                    <button onClick={handleLogout} className="authButton inverted">Logout</button>
                 ) : (
-                    <button onClick={handleLogin} className='authButton'>Login</button>
+                    <NavLink to="/login" className="authButton">Login</NavLink>
                 )}
             </div>
         </div>
-    )
+    );
 };
 
 export default Header;

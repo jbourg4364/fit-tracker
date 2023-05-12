@@ -55,7 +55,7 @@ routineActivitiesRouter.patch("/:routineActivityId", authenticateUser, async (re
         return res.status(403).json({
           error: "ForbiddenError",
           message: `User ${req.user.username} is not allowed to update ${routine.name}`,
-          name: "FOrbiddenError"
+          name: "ForbiddenError"
         });
       }
   
