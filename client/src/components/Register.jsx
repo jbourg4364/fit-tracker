@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api-client/auth'; // replace with the file where registerUser function is declared
-
+import { registerUser } from '../api-client/auth';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,31 +12,37 @@ const Register = () => {
 
     if (result.error) {
       setError(result.message);
+      window.alert(error);
     } else {
-      // Here you could redirect the user, or do something else with the result
       console.log(result);
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="register-container">
+      <h1 id="registerHeader">Register</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
+          id="username"
           value={username}
+          required
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
+          id="password"
           value={password}
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Register</button>
+        <button type="submit" id="registerButt">Register</button>
       </form>
-      {error && <p>{error}</p>}
+      <p>
+          Have an account? <a href="/login">Login</a>
+        </p>
     </div>
   );
 };

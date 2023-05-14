@@ -1,6 +1,6 @@
-/* Login.css */
+/* Register.css */
 
-.login-container {
+.register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,16 +13,16 @@
     border: 2px solid black;
     border-radius: 5px;
     background-color: white;
-    width: 400px; /* you can adjust this value */
-    min-height: 300px; /* you can adjust this value */
+    width: 400px;
+    min-height: 300px;
 }
 
-.login-container h1 {
+.register-container h1 {
     color: black;
     margin-bottom: 20px;
 }
 
-.login-container input[type="text"], .login-container input[type="password"] {
+.register-container input[type="text"], .register-container input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 
-.login-container #loginButt {
+.register-container #registerButt {
     width: 100%;
     padding: 10px;
     color: white;
@@ -41,20 +41,6 @@
     text-transform: uppercase;
 }
 
-.login-container #loginButt:hover {
+.register-container #registerButt:hover {
     background-color: darkred;
-}
-
-.login-container p {
-    color: black;
-    margin-top: 10px;
-}
-
-.login-container a {
-    color: red;
-    text-decoration: none;
-}
-
-.login-container a:hover {
-    text-decoration: underline;
 }

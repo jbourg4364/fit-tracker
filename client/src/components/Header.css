@@ -61,4 +61,24 @@ nav {
     margin-right: 10px;
     font-size: 14px;
     letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.authButton:hover {
+    color:white;
+    background-color: black;
+}
+.logoutButton {
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logoutButton:hover {
+    color: black;
+    background-color: white;
 }
