@@ -7,8 +7,8 @@ import { NewActivityForm } from './'
 const Activities = ({isLoggedIn}) => {
     const [activities, setActivities] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const [routines, setRoutines] = useState([]);
 
-    isLoggedIn = true; // Temporary declaration
 
 useEffect(() => {
     const fetchActivities = async () => {
@@ -44,6 +44,28 @@ const handleAddActivity = async (name, description) => {
     }
 };
 
+const handleActivityClick = async (activityId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/activities/${activityId}/routines`);
+      const data = await response.json();
+  
+      if (data.length === 0) {
+        
+        return;
+      }
+  
+      setRoutines(data);
+      return routines;
+    } catch (error) {
+        // console.error(error);
+    
+        window.alert("No routines are currently associated with that activity.");
+        return ;
+    }
+  };
+  
+  
+
     return(
         <div>
             <h1>Activities</h1>
@@ -52,13 +74,29 @@ const handleAddActivity = async (name, description) => {
             ) : (
             <button id='newActivity' onClick={() => isLoggedIn ? setShowForm(true) : window.alert("Please Login to Add an Activity")}>Add New Activity</button>
             )}
+
+            {(routines.length) ? (
+                <div>
+                    <h2>Routines for Selected Activity</h2>
+                    <hr></hr>
+                    <ul>
+                        {routines.map(routine => (
+                            <li key={routine.id}>
+                                {routine.name}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : (<h2>Choose an activity below to see it's routines!</h2>) 
+            }
             <ul className='activity-container'>
                 {activities.map(activity => (
-                <li key={activity.id} className='activity-item'>
+                <li key={activity.id} className='activity-item' onClick={() => handleActivityClick(activity.id)} >
                     <b>{activity.name}</b>
                     <br />
                     <p>"{activity.description}"</p>
                 </li>))}
+
             </ul>
         </div>
     )
