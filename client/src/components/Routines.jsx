@@ -1,80 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { NewRoutineForm } from './';
+import React, { useState, useEffect } from 'react';
+import { getAllRoutines } from '../api-client/index';
+import './Routines.css';
 
-const Routines = ({isLoggedIn}) => {
-const [routines, setRoutines] = useState([]);
-const [showForm, setShowForm] = useState(false);
+const Routines = () => {
+  const [routines, setRoutines] = useState([]);
 
-isLoggedIn = true; // Temporary declaration
-
-
-
-useEffect(() => {
-    const fetchRoutines = async () => {
-       try {
-        const response = await fetch('http://localhost:8080/api/routines');
-        const data = await response.json();
-        
-        setRoutines(data);
-       } catch (error) {
-        console.error(error)
-       }
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAllRoutines();
+      console.log(result)
+      setRoutines(result);
     };
 
-    fetchRoutines();
-}, []);
+    fetchData();
+  }, []);
 
-
-const handleAddRoutine = async (name, goal) => {
-    try {
-        const response = await fetch('http://localhost:8080/api/routines', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, goal })
-        });
-
-        const data = await response.json();
-        setRoutines([...routines, data]);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-    
-return(
-    <div>
-        <h1>Routines</h1>
-        {showForm ? (
-            <NewRoutineForm onSubmit={handleAddRoutine}/>
-        ) : (
-        <button id='newRoutine' onClick={() => isLoggedIn ? setShowForm(true) : window.alert("Please Login to Add an Activity")}>Add New Routine</button>)
-        }
-        <ul className='routine-container'>
-            {routines.map(routine => (
-            <li key={routine.id} className='routine-item'>
-                <b>Routine Name: </b>{routine.name}
-                <br />
-                <b>Goal: </b>{routine.goal}
-                <br />
-                <b>Created By: </b>{routine.creatorName}
-                <ul>
-                    <hr />
-                    <em>Activities Available for This Item</em>
-                    <li>
-                        <b>{routine.activities[0].name}</b>
-                        <p>{routine.activities[0].description}</p>
-                        <p>Count: {routine.activities[0].count}</p>
-                        <p>Duration: {routine.activities[0].duration}</p>
-                    </li>
-                </ul>
-            </li>
-            
-            ))}
-        </ul>
+  return (
+    <div className="routines-container">
+      {routines.map((routine, index) => (
+        <div key={routine.id} className="routine-card" id={`routine-${index}`}>
+          <h2 className="routine-name">{routine.name}</h2>
+          <p className="routine-goal">Goal: <span>{routine.goal}</span></p>
+          <h3 className="activities-title">Activities</h3>
+          {routine.activities.map((activity) => (
+            <div key={activity.id} className="activity-info">
+              <h4 className="activity-name">{activity.name}</h4>
+              <p className="activity-description">Description: <span>{activity.description}</span></p>
+              <p className="activity-duration">Duration: <span>{activity.duration} minutes</span></p>
+              <p className="activity-count">Count: <span>{activity.count}</span></p>
+            </div>
+          ))}
+          <p className="routine-creator">Created by: <span>{routine.creatorName}</span></p>
+        </div>
+      ))}
     </div>
-)
-};
+  );
+}
 
 export default Routines;

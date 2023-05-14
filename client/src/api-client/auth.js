@@ -1,24 +1,22 @@
 export const getMe = async (token) => {
-    try {
-      const response = await fetch(
-        'http://localhost:8080/api/users/me',
-        {
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  try {
+    const response = await fetch('http://localhost:8080/api/users/me', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
   
-      const { success, error, data } = await response.json();  
-      return { success, error, user: data };
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-export const loginUser = async (userObject) => {
+  export const loginUser = async (userObject) => {
     try {
       const response = await fetch(
         `http://localhost:8080/api/users/login`,
@@ -31,26 +29,28 @@ export const loginUser = async (userObject) => {
         }
       );
   
-      const { success, error, data } = await response.json();
+      if (response.status === 200) {
+        const data = await response.json();
+        const { token, message, user } = data;
   
-      if (success) {
-        const { token, message } = data;
-        const { success, error, user } = await getMe(token);
-        if (user) {
-          user.token = token; // Store token in user object
+        if (token) {
           localStorage.setItem('token', token);
           return { token, message, user };
         }
-        return { token, message, error };
+  
+        return { message, error: data.error };
+      } else if (response.status === 401) {
+        const { error, message } = await response.json();
+        return { error, message };
       }
-      if (!success && !error) {
-        const { name, message } = data;
-        return { name, message };
-      }
+  
+      throw new Error('Unexpected server response');
     } catch (error) {
       console.error(error);
+      return { error: error.message };
     }
   };
+  
   
 
 export const registerUser = async (userObject) => {

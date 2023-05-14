@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Logout } from './index'
 import './Header.css';
 
-const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-    };
-
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-    };
+const Header = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
 
     return (
         <div id='headerComponent'>
@@ -30,13 +22,13 @@ const Header = () => {
             </nav>
             <div className='loginLogoutButtons'>
                 {isLoggedIn ? (
-                    <button onClick={handleLogout} className='authButton'>Logout</button>
+                    <Logout setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
                 ) : (
-                    <button onClick={handleLogin} className='authButton'>Login</button>
+                    <NavLink to="/login" className="authButton">Login</NavLink>
                 )}
             </div>
         </div>
-    )
+    );
 };
 
 export default Header;

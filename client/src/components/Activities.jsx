@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './Activities.css';
 import { NewActivityForm } from './'
 
-
-// Assuming isLoggedIn will give us authentication
 const Activities = ({isLoggedIn}) => {
     const [activities, setActivities] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [routines, setRoutines] = useState([]);
-
 
 useEffect(() => {
     const fetchActivities = async () => {

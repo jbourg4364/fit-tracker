@@ -15,8 +15,7 @@ const bcrypt = require('bcrypt')
 
 const authenticateUser = async (req, res, next) => {
     try {
-    //   console.log('req.headers.authorization:', req.headers.authorization); // Log the authorization header value
-  
+    //   console.log('req.headers.authorization:', req.headers.authorization);
       const token = req.headers.authorization.split(' ')[1];
     //   console.log('token:', token); 
   
@@ -55,7 +54,7 @@ routineActivitiesRouter.patch("/:routineActivityId", authenticateUser, async (re
         return res.status(403).json({
           error: "ForbiddenError",
           message: `User ${req.user.username} is not allowed to update ${routine.name}`,
-          name: "FOrbiddenError"
+          name: "ForbiddenError"
         });
       }
   

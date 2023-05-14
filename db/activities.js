@@ -98,8 +98,7 @@ async function attachActivitiesToRoutines(routines) {
 
 
 
-async function updateActivity(id, fields) {
-  const { name, description } = fields;
+async function updateActivity({ id, name, description }) {
   const activityToUpdate = await getActivityById(id);
 
   if (!activityToUpdate) {
@@ -108,8 +107,8 @@ async function updateActivity(id, fields) {
 
   const updatedFields = {
     ...activityToUpdate,
-    ...(name && { name }),
-    ...(description && { description }),
+    ...(name !== undefined && { name }),
+    ...(description !== undefined && { description }),
   };
 
   const { rows: [updatedActivity] } = await client.query(`
@@ -121,6 +120,7 @@ async function updateActivity(id, fields) {
 
   return updatedActivity;
 }
+
 
 
 module.exports = {

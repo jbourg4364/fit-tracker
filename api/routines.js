@@ -36,8 +36,7 @@ routinesRouter.get('/', async (req, res, next) => {
 
 const authenticateUser = async (req, res, next) => {
     try {
-      // console.log('req.headers.authorization:', req.headers.authorization); // Log the authorization header value
-  
+      // console.log('req.headers.authorization:', req.headers.authorization);
       const token = req.headers.authorization.split(' ')[1];
       // console.log('token:', token); 
   
