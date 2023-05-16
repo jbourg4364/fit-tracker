@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api-client/auth';
-import { useNavigate } from 'react-router';
+import './Register.css'
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

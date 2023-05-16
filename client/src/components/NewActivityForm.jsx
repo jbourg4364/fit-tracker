@@ -6,7 +6,7 @@ import './Activities.css';
 const NewActivityForm = ({ onSubmit, isLoggedIn }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
- 
+    
     
     const handleSubmit = (event) => {
         event.preventDefault();
