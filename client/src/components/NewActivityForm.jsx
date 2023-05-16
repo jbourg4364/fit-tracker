@@ -6,9 +6,8 @@ import './Activities.css';
 const NewActivityForm = ({ onSubmit, isLoggedIn }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+ 
     
-    isLoggedIn = true;
-
     const handleSubmit = (event) => {
         event.preventDefault();
         if(isLoggedIn) {

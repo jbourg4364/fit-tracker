@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api-client/auth';
+import { useNavigate } from 'react-router';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,7 +17,8 @@ const Register = () => {
       setError(result.message);
       window.alert(error);
     } else {
-      console.log(result);
+      window.alert("Congratulations! You are now registered!");
+      navigate('/login')
     }
   };
 
