@@ -10,7 +10,8 @@
     "start": "(npm run start --prefix client) & node server.js",
     "start:react": "npm run start --prefix client",
     "test": "jest --runInBand",
-    "test:watch": "jest --runInBand --watchAll"
+    "test:watch": "jest --runInBand --watchAll",
+    "build": "react-scripts build"
   },
   "repository": {
     "type": "git",

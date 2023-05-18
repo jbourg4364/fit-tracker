@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { registerUser } from '../api-client/auth';
 import './Register.css'
 const Register = () => {
